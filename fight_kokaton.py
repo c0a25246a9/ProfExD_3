@@ -140,6 +140,7 @@ class Bomb:
         self.rct.move_ip(self.vx, self.vy)
         screen.blit(self.img, self.rct)
 
+
 class Score:
     """
     スコアに関するクラス
@@ -153,6 +154,10 @@ class Score:
         self.rct.center = 100, HEIGHT - 50
     
     def update(self, screen: pg.Surface):
+        """
+        Scoreを画面に表示させる
+        引数 screen：画面Surface
+        """
         self.img = self.fonto.render(f"Score:{self.score}", 0, self.color)
         screen.blit(self.img, self.rct)
 
@@ -164,7 +169,7 @@ def main():
     # bomb = Bomb((255, 0, 0), 10)
     bombs = [Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)]
     beam = None  # ゲーム初期化時にはビームは存在しない
-    beams = []
+    beams = [] # ビームを収納するからのリスト
     score = Score()
     clock = pg.time.Clock()
     tmr = 0
@@ -173,7 +178,7 @@ def main():
             if event.type == pg.QUIT:
                 return
             if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
-                # スペースキー押下でBeamクラスのインスタンス生成
+                # スペースキー押下でリストに収納
                 beams.append(Beam(bird))           
         screen.blit(bg_img, [0, 0])
         for bomb in bombs:
@@ -198,7 +203,7 @@ def main():
                             pg.display.update()
                             time.sleep(1)
 
-        beams = [beam for beam in beams if beam is not None and check_bound(beam.rct)[0]]
+        beams = [beam for beam in beams if beam is not None and check_bound(beam.rct)[0]] # リストの更新（Noneでない、かつ画面内のビームだけ残す）
         bombs = [bomb for bomb in bombs if bomb is not None]
 
         if len(bombs) == 0:
