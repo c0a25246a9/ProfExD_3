@@ -191,16 +191,19 @@ def main():
                 if beam is not None:
                     if bomb is not None:
                         if beam.rct.colliderect(bomb.rct): # 練習2
-                            beams[i] = None
+                            beams[j] = None
                             bombs[i] = None
                             score.score += 1
                             bird.change_img(6, screen)
-
                             pg.display.update()
                             time.sleep(1)
 
         beams = [b for b in beams if b is not None and check_bound(b.rct)[0]]
         bombs = [bomb for bomb in bombs if bomb is not None]
+
+        if len(bombs) == 0:
+            time.sleep(1)
+            return
 
 
         key_lst = pg.key.get_pressed()
@@ -215,7 +218,7 @@ def main():
         score.update(screen)
         pg.display.update()
         tmr += 1
-        clock.tick(50)
+        clock.tick(500)
 
 
 if __name__ == "__main__":
