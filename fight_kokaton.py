@@ -198,7 +198,7 @@ def main():
                             pg.display.update()
                             time.sleep(1)
 
-        beams = [b for b in beams if b is not None and check_bound(b.rct)[0]]
+        beams = [beam for beam in beams if beam is not None and check_bound(beam.rct)[0]]
         bombs = [bomb for bomb in bombs if bomb is not None]
 
         if len(bombs) == 0:
@@ -218,7 +218,7 @@ def main():
         score.update(screen)
         pg.display.update()
         tmr += 1
-        clock.tick(500)
+        clock.tick(50)
 
 
 if __name__ == "__main__":
